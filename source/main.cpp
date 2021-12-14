@@ -1,10 +1,5 @@
 #include "string.h"
-#include "linux/can.h"
 #include "iostream"
-#include "sys/socket.h"
-#include "sys/ioctl.h"
-#include "net/if.h"
-#include "unistd.h"
 #include "candevice.hpp"
 
 void print(const char* message)

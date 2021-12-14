@@ -5,18 +5,18 @@
 #include <net/if.h>
 #include <unistd.h>
 #include <string.h>
-#include <iostream>
+#include <stdio.h>
 
 CanDevice::CanDevice(const char* interface)
 {
-    this->socket_fd = socket(PF_CAN, SOCK_RAW, CAN_RAW);
+    this->socketFd = socket(PF_CAN, SOCK_RAW, CAN_RAW);
     int index = retrieveInterfaceIndex(interface);
     sockaddr_can addr = getCanSockAddr(index);
 
-    if (bind(socket_fd, (struct sockaddr *)&addr, sizeof(addr)) < 0)
+    if (bind(socketFd, (struct sockaddr *)&addr, sizeof(addr)) < 0)
     {
         // TODO: see when to use perror, should throw here and handle exception?
-        close(socket_fd); // maybe close is called in destructor after throw?
+        close(socketFd); // maybe close is called in destructor after throw?
         perror("Bind error");
         // TODO:
         // throw!
@@ -25,14 +25,14 @@ CanDevice::CanDevice(const char* interface)
 
 CanDevice::~CanDevice()
 {
-    close(this->socket_fd);
+    close(this->socketFd);
 }
 
 int CanDevice::retrieveInterfaceIndex(const char* interface)
 {
     ifreq if_request;
     strcpy(if_request.ifr_name, interface);
-    ioctl(this->socket_fd, SIOCGIFINDEX, &if_request);
+    ioctl(this->socketFd, SIOCGIFINDEX, &if_request);
     return if_request.ifr_ifindex;
 }
 
@@ -49,7 +49,7 @@ can_frame CanDevice::readFrame()
 {
     int nbytes;
     can_frame frame;
-    nbytes = read(this->socket_fd, &frame, sizeof(can_frame));
+    nbytes = read(this->socketFd, &frame, sizeof(can_frame));
 
     if (nbytes < 0)
     {

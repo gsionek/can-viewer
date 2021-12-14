@@ -4,16 +4,15 @@
 
 class CanDevice
 {
-private:
-    int socket_fd;
-    int retrieveInterfaceIndex(const char* interface);
-    sockaddr_can getCanSockAddr(int ifIndex);
-
 public:
     CanDevice(const char* interface);
     ~CanDevice();
     can_frame readFrame();
 
+private:
+    int socketFd;
+    int retrieveInterfaceIndex(const char* interface);
+    sockaddr_can getCanSockAddr(int ifIndex);
 };
 
 #endif //CANDEVICE_H

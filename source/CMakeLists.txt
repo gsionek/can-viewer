@@ -1,8 +1,5 @@
 set(BINARY ${CMAKE_PROJECT_NAME})
 
-# set(HEADERS
-# )
-
 set(SOURCES
     main.cpp
     candevice.cpp
