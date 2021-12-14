@@ -2,6 +2,7 @@ enable_testing()
 
 set(SOURCES 
 tst_candevice.cpp
+tst_canframe.cpp
 )
 
 set(BINARY ${CMAKE_PROJECT_NAME}_tst)
