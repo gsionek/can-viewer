@@ -2,13 +2,14 @@
 
 CanFrame::CanFrame()
 {
-    this->frame.can_id
+    this->canId = 0u;
+    this->dlc = 0u;
+    this->data.clear();
 }
-
 
 CanFrame::CanFrame(const can_frame& frame)
 {
-    this->frame = frame;
+    // TODO
 }
 
 CanFrame::~CanFrame()
@@ -16,19 +17,19 @@ CanFrame::~CanFrame()
 
 }
 
-int CanFrame::getCanId()
+unsigned int CanFrame::getCanId()
 {
     return 0; // TODO
 }
 
-int CanFrame::getDlc()
+unsigned char CanFrame::getDlc()
 {
     return 0; // TODO
 }
 
-int CanFrame::getData()
+std::vector<unsigned char> CanFrame::getData()
 {
-    return 0; // TODO
+    return data; // TODO
 }
 
 bool CanFrame::isExtendedFrameFormat()
@@ -44,4 +45,9 @@ void CanFrame::setCanId(/*...*/)
 void CanFrame::setData(/*...*/)
 {
     // TODO
+}
+
+std::ostream& operator<<(std::ostream os, const CanFrame& frame)
+{
+    // os << "0x"
 }
