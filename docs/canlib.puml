@@ -1,0 +1,28 @@
+@startuml CanLib
+
+title CanLib
+
+class CanFrame
+{
+    +CanFrame(const can_frame& frame);
+    +unsigned int getCanId();
+    +unsigned int getDlc();
+    +std::vector<unsigned char> getData();
+    +bool isExtendedFrameFormat();
+    +void print();
+
+    -can_frame frame 
+    -unsigned int getExtendedFormatId();
+    -unsigned int getStandardFormatId();
+}
+
+class CanDevice
+{
+    +CanDevice(const char* interface);
+
+    +CanFrame readFrame()
+}
+
+CanDevice --> CanFrame
+
+@enduml
