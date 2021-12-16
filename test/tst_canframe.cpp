@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "../src/canframe.hpp"
+#include <stdio.h>
 
 TEST(CanFrameTest, DefaultConstructor)
 {
@@ -12,12 +13,6 @@ TEST(CanFrameTest, DefaultConstructor)
     {
         EXPECT_EQ(byte, 0u);
     }
-}
-
-TEST(CanFrameTest, FramConstructor)
-{
-    // TODO
-    FAIL();
 }
 
 TEST(CanFrameTest, isExtendedFrameFormat)
@@ -73,8 +68,18 @@ TEST(CanFrameTest, getDlc)
     FAIL();
 }
 
-TEST(CanFrameTest, getData)
-{
-    // TODO
-    FAIL();
+TEST(CanFrameTest, getDataBytes)
+{    
+    can_frame frame_struct;
+    frame_struct.can_id = 0x001;
+    frame_struct.can_dlc = 5;
+    for(int i=0; i<CAN_MAX_DLC; ++i)
+        frame_struct.data[i] = i+1;
+
+    CanFrame frame_obj(frame_struct);
+    auto data = frame_obj.getData();
+    
+    EXPECT_EQ(data.size(), frame_struct.can_dlc);
+    for(int i=0; i<data.size(); ++i)
+        EXPECT_EQ(data.at(i), frame_struct.data[i]);
 }

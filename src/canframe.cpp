@@ -1,8 +1,9 @@
 #include "canframe.hpp"
+#include <string.h>
 
 CanFrame::CanFrame()
 {
-    // TODO initialize can_frame
+    memset(&this->frame, 0, sizeof(can_frame));
 }
 
 CanFrame::CanFrame(const can_frame& frame)
@@ -24,15 +25,14 @@ unsigned int CanFrame::getCanId()
 
 unsigned char CanFrame::getDlc()
 {
-    return 0; // TODO
+    return this->frame.can_dlc;
 }
 
 std::vector<unsigned char> CanFrame::getData()
 {
-    // TODO
-    std::vector<unsigned char> empty_vector;
-    empty_vector.clear();
-    return empty_vector;
+    std::vector<unsigned char> data(this->frame.data,
+                                    this->frame.data + this->frame.can_dlc);
+    return data;
 }
 
 bool CanFrame::isExtendedFrameFormat()
