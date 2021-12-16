@@ -20,9 +20,10 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const CanFrame& frame);
 private:
-    unsigned int canId;
-    unsigned char dlc;
-    std::vector<unsigned char> data;
+    can_frame frame;
+
+    unsigned int getExtendedFormatId();
+    unsigned int getStandardFormatId();
 };
 
 #endif //CANFRAME_H

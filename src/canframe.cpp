@@ -2,14 +2,12 @@
 
 CanFrame::CanFrame()
 {
-    this->canId = 0u;
-    this->dlc = 0u;
-    this->data.clear();
+    // TODO initialize can_frame
 }
 
 CanFrame::CanFrame(const can_frame& frame)
 {
-    // TODO
+    this->frame = frame;
 }
 
 CanFrame::~CanFrame()
@@ -19,7 +17,9 @@ CanFrame::~CanFrame()
 
 unsigned int CanFrame::getCanId()
 {
-    return 0; // TODO
+    unsigned int id = isExtendedFrameFormat() ? this->getExtendedFormatId()
+                                              : this->getStandardFormatId();
+    return id;
 }
 
 unsigned char CanFrame::getDlc()
@@ -29,12 +29,15 @@ unsigned char CanFrame::getDlc()
 
 std::vector<unsigned char> CanFrame::getData()
 {
-    return data; // TODO
+    // TODO
+    std::vector<unsigned char> empty_vector;
+    empty_vector.clear();
+    return empty_vector;
 }
 
 bool CanFrame::isExtendedFrameFormat()
 {
-    return false; // TODO
+    return (frame.can_id & CAN_EFF_FLAG);
 }
 
 void CanFrame::setCanId(/*...*/)
@@ -50,4 +53,14 @@ void CanFrame::setData(/*...*/)
 std::ostream& operator<<(std::ostream os, const CanFrame& frame)
 {
     // os << "0x"
+    return os;
+}
+
+unsigned int CanFrame::getExtendedFormatId()
+{
+    return (this->frame.can_id & CAN_EFF_MASK);
+}
+unsigned int CanFrame::getStandardFormatId()
+{
+    return (this->frame.can_id & CAN_SFF_MASK);
 }
