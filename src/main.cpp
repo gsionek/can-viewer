@@ -13,6 +13,7 @@ int main()
     print("Starting CanViewer");
     CanDevice can_device("vcan0");
 
+    // TODO: use std::thread and wait for user input to .join()
     while (true)
     {
         CanFrame frame;
