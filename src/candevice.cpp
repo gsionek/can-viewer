@@ -45,7 +45,7 @@ sockaddr_can CanDevice::getCanSockAddr(int ifIndex)
     return addr;
 }
 
-can_frame CanDevice::readFrame()
+CanFrame CanDevice::readFrame()
 {
     int nbytes;
     can_frame frame;
@@ -55,8 +55,8 @@ can_frame CanDevice::readFrame()
     {
         perror("Read error");
         // TODO:
-        // throw
+        // throw?
     }
 
-    return frame;
+    return CanFrame(frame);
 }

@@ -1,13 +1,14 @@
 #ifndef CANDEVICE_H
 #define CANDEVICE_H
 #include <linux/can.h>
+#include "canframe.hpp"
 
 class CanDevice
 {
 public:
     CanDevice(const char* interface);
     ~CanDevice();
-    can_frame readFrame();
+    CanFrame readFrame();
 
 private:
     int socketFd;
