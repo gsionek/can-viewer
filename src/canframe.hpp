@@ -10,10 +10,13 @@ public:
     CanFrame();
     CanFrame(const can_frame& frame);
     ~CanFrame();
+
     unsigned int getCanId() const;
-    unsigned char getDlc() const;
+    unsigned int getDlc() const;
     std::vector<unsigned char> getData() const;
+
     bool isExtendedFrameFormat() const;
+    void print() const;
 
     void setCanId(/*...*/);
     void setData(/*...*/);

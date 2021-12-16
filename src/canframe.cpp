@@ -23,7 +23,7 @@ unsigned int CanFrame::getCanId() const
     return id;
 }
 
-unsigned char CanFrame::getDlc() const
+unsigned int CanFrame::getDlc() const
 {
     return this->frame.can_dlc;
 }
@@ -40,6 +40,16 @@ bool CanFrame::isExtendedFrameFormat() const
     return (frame.can_id & CAN_EFF_FLAG);
 }
 
+void CanFrame::print() const
+{
+    printf("0x%03X [%d] ", this->getCanId(), this->getDlc());
+
+    for(auto d: this->getData())
+        printf("%02X ", d);
+
+    printf("\n");
+}
+
 void CanFrame::setCanId(/*...*/)
 {
     // TODO
@@ -52,8 +62,7 @@ void CanFrame::setData(/*...*/)
 
 std::ostream& operator<<(std::ostream& os, const CanFrame& frame)
 {
-    os << "<" << frame.getCanId() << "> [" << frame.getDlc() << "] ";
-    return os;
+    // TODO
 }
 
 unsigned int CanFrame::getExtendedFormatId() const
