@@ -12,3 +12,4 @@ set(HEADERS
 
 add_library(${CMAKE_PROJECT_NAME}_lib ${SOURCES} ${HEADERS})
 add_executable(${CMAKE_PROJECT_NAME} main.cpp ${SOURCES})
+target_link_libraries(${CMAKE_PROJECT_NAME} pthread)
