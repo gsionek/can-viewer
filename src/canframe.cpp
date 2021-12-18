@@ -18,8 +18,8 @@ CanFrame::~CanFrame()
 
 unsigned int CanFrame::getCanId() const
 {
-    unsigned int id = isExtendedFrameFormat() ? this->getExtendedFormatId()
-                                              : this->getStandardFormatId();
+    unsigned int id = this->isExtendedFrameFormat() ? this->getExtendedFormatId()
+                                                    : this->getStandardFormatId();
     return id;
 }
 
@@ -37,12 +37,17 @@ std::vector<unsigned char> CanFrame::getData() const
 
 bool CanFrame::isExtendedFrameFormat() const
 {
-    return (frame.can_id & CAN_EFF_FLAG);
+    return (this->frame.can_id & CAN_EFF_FLAG);
 }
 
 void CanFrame::print() const
 {
-    printf("0x%03X [%d] ", this->getCanId(), this->getDlc());
+    if(this->isExtendedFrameFormat())
+        printf("0x%08X", this->getCanId());
+    else
+        printf("0x%03X", this->getCanId());
+
+    printf(" [%d] ", this->getDlc());
 
     for(auto d: this->getData())
         printf("%02X ", d);
